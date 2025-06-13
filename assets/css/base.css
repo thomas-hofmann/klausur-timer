@@ -1,0 +1,20 @@
+body {
+    hyphens: auto;
+    font-family: "Orbitron", monospace;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+}
+
+.container--individual {
+    border: 1px solid #dee2e6;
+    padding: 15px;
+    background: white;
+    box-shadow: 0px 0px 19px -13px rgba(0, 0, 0, 0.75);
+}
+
+hr {
+    border-top: 1px solid #dee2e6;
+    opacity: 1;
+}
