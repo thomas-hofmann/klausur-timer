@@ -1,6 +1,9 @@
-body {
-    hyphens: auto;
-    font-family: "Orbitron", monospace;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  hyphens: auto;
+  font-family: "Orbitron", monospace;
 }
 
 h1, h2, h3 {

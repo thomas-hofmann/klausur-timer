@@ -227,11 +227,13 @@ function handleDarkModeToggle() {
     if (this.checked) {
         document.body.classList.remove('bg-body-tertiary');
         document.body.classList.remove('light-mode');
-        document.body.classList.add('bg-secondary');
+        document.body.classList.add('bg-dark');
+        document.body.classList.add('bg-gradient');
         document.body.classList.add('dark-mode');
         localStorage.setItem('darkMode', 'on');
     } else {
-        document.body.classList.remove('bg-secondary');
+        document.body.classList.remove('bg-dark');
+        document.body.classList.remove('bg-gradient');
         document.body.classList.remove('dark-mode');
         document.body.classList.add('bg-body-tertiary');
         document.body.classList.add('light-mode');
@@ -244,11 +246,13 @@ function initDarkMode() {
     const toggle = document.getElementById('darkModeToggle');
 
     if (darkModeSetting === 'on') {
-        document.body.classList.add('bg-secondary');
+        document.body.classList.add('bg-dark');
+        document.body.classList.add('bg-gradient');
         document.body.classList.add('dark-mode');
         toggle.checked = true;
     } else {
         document.body.classList.add('bg-body-tertiary');
+        document.body.classList.add('bg-gradient');
         document.body.classList.add('light-mode');
         toggle.checked = false;
     }
