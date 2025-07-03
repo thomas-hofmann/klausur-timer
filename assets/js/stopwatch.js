@@ -223,6 +223,37 @@ function soundToggle() {
     }
 }
 
+function handleDarkModeToggle() {
+    if (this.checked) {
+        document.body.classList.remove('bg-body-tertiary');
+        document.body.classList.remove('light-mode');
+        document.body.classList.add('bg-secondary');
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'on');
+    } else {
+        document.body.classList.remove('bg-secondary');
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('bg-body-tertiary');
+        document.body.classList.add('light-mode');
+        localStorage.setItem('darkMode', 'off');
+    }
+}
+
+function initDarkMode() {
+    const darkModeSetting = localStorage.getItem('darkMode');
+    const toggle = document.getElementById('darkModeToggle');
+
+    if (darkModeSetting === 'on') {
+        document.body.classList.add('bg-secondary');
+        document.body.classList.add('dark-mode');
+        toggle.checked = true;
+    } else {
+        document.body.classList.add('bg-body-tertiary');
+        document.body.classList.add('light-mode');
+        toggle.checked = false;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     updateClock();
 
@@ -232,6 +263,13 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('countdownOn').addEventListener('click', checkBegin);
     document.getElementById('countdownOff').addEventListener('click', checkBegin);
     document.getElementById('soundLabel').addEventListener('click', soundToggle);
+
+    // Dark Mode Toggle
+    const toggle = document.getElementById('darkModeToggle');
+    toggle.addEventListener('change', handleDarkModeToggle);
+
+    // Dark Mode Zustand beim Laden wiederherstellen
+    initDarkMode();
     
     setInterval(updateClock, 1000);
 });
