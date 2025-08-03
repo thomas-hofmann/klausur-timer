@@ -6,22 +6,24 @@ let phase = 'countdownToStart'; // Track current phase
 let display = 0;
 let referenceTime; // Reference time for synchronization
 let soundBool = false;
+let timerRunning = false;
 
 function startStopwatch() {
     const durationInput = document.getElementById('target-time').value;
     const startTimeInput = document.getElementById('start-time').value;
     const headingText = document.getElementById('exam-name').value;
+    timerRunning = true;
 
     const now = new Date();
 
     if (document.getElementById('countdownOn').checked == true) {
-        if (!durationInput || !startTimeInput || !headingText) {
+        if (!durationInput || !startTimeInput) {
             console.log('Ein Value fehlt.')
             return;
         } 
         document.getElementById('clock-start').innerText = startTimeInput;
     } else {
-        if (!durationInput || !headingText) {
+        if (!durationInput) {
             console.log('Ein Value fehlt.')
             return;
         } 
@@ -34,8 +36,9 @@ function startStopwatch() {
     }
 
     document.getElementById('accordion-button-settings').click();
-    document.getElementById('exam-heading').innerText = headingText;
-
+    if (headingText) {
+        document.getElementById('exam-heading').innerText = headingText; 
+    }
     let [startHours, startMinutes] = startTimeInput.split(':');
     
     if (document.getElementById('countdownOn').checked == true) {
@@ -85,6 +88,8 @@ function resetStopwatch() {
     document.getElementById('progress-bar').style.display = 'none';
     document.getElementById('stopwatch').textContent = "0";
     document.getElementById('start-time').value = '';
+    document.getElementById('target-time').value = '';
+    document.getElementById('exam-name').value = '';
     document.getElementById('progress').style.width = '0%';
     document.getElementById('stop-watch-container--done').style.display = 'none';
     document.getElementById('intro-text').style.display = 'none';
@@ -92,12 +97,10 @@ function resetStopwatch() {
     document.getElementById('clock-start').innerText = '-:-';
     document.getElementById('clock-finish').innerText = '-:-';
     document.getElementById('reset').disabled = true;
+    document.getElementById('exam-heading').innerText = "Klausurtimer";
+    timerRunning = false;
 
-    if (document.getElementById('countdownOn').checked == false) {
-        document.getElementById('start').disabled = false;
-    } else {
-        document.getElementById('start').disabled = true;
-    }
+    document.getElementById('start').disabled = true;
     
     document.getElementById('soundLabel').setAttribute('data-soundtoggle', 'off');
     document.getElementById('soundOnIcon').style.display = 'none';
@@ -132,6 +135,7 @@ function updateStopwatch() {
             document.getElementById('progress').style.width = '0%';
             document.getElementById('progress-bar').style.display = 'none';
             document.getElementById('stop-watch-container--done').style.display = 'block';
+            timerRunning = false;
 
             if (soundBool == true) {
                 document.getElementById('sound').play();
@@ -185,11 +189,11 @@ function updateClock() {
 function checkValues() {
     var startTimeValue = document.getElementById('start-time').value.trim();
     var targetTimeValue = document.getElementById('target-time').value.trim();
-    var examName = document.getElementById('exam-name').value.trim();
+    // var examName = document.getElementById('exam-name').value.trim();
 
-    if (startTimeValue && Number(targetTimeValue) > 0 && examName) {
+    if (startTimeValue && Number(targetTimeValue) > 0) {
         document.getElementById('start').disabled = false;
-    } else if(Number(targetTimeValue) > 0 && examName && document.getElementById('countdownOn').checked == false) {
+    } else if(Number(targetTimeValue) > 0 && document.getElementById('countdownOn').checked == false) {
         document.getElementById('start').disabled = false;
     } else {
         document.getElementById('start').disabled = true;
@@ -200,9 +204,11 @@ function checkBegin() {
     if (document.getElementById('countdownOn').checked == true) {
         document.getElementById('start-time').disabled = false;
         document.getElementById('start-time').classList.remove('bg-danger-subtle');
+        document.getElementById('start-time').classList.remove('d-none');
     } else {
         document.getElementById('start-time').disabled = true;
         document.getElementById('start-time').classList.add('bg-danger-subtle');
+        document.getElementById('start-time').classList.add('d-none');
     }
     checkValues();
 }
@@ -252,7 +258,6 @@ function initDarkMode() {
         toggle.checked = true;
     } else {
         document.body.classList.add('bg-body-tertiary');
-        document.body.classList.add('bg-gradient');
         document.body.classList.add('light-mode');
         toggle.checked = false;
     }
@@ -263,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('start-time').addEventListener('input', checkValues);
     document.getElementById('target-time').addEventListener('input', checkValues);
-    document.getElementById('exam-name').addEventListener('input', checkValues);
+    // document.getElementById('exam-name').addEventListener('input', checkValues);
     document.getElementById('countdownOn').addEventListener('click', checkBegin);
     document.getElementById('countdownOff').addEventListener('click', checkBegin);
     document.getElementById('soundLabel').addEventListener('click', soundToggle);
@@ -276,4 +281,12 @@ document.addEventListener('DOMContentLoaded', function () {
     initDarkMode();
     
     setInterval(updateClock, 1000);
+});
+
+window.addEventListener('beforeunload', function (e) {
+    // Warnung nur wenn der Timer aktiv ist
+    if (timerRunning) {
+        e.preventDefault();
+        e.returnValue = ''; // wichtig für die Anzeige des Warn-Dialogs
+    }
 });

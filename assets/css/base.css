@@ -2,9 +2,8 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
   hyphens: auto;
-  font-family: "Orbitron", monospace;
+  overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -49,4 +48,22 @@ hr {
 
 .dark-mode .link-dark {
     color: white !important;
+}
+
+.dark-mode .list-group-item {
+    background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+     color: white;
+}
+
+.timer-container {
+    font-family: "Orbitron", monospace;
+}
+
+.input-time-patch {
+  display: flex;
+  align-items: center;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  white-space: nowrap;
 }

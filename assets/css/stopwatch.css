@@ -1,5 +1,6 @@
 .stopwatch {
     font-size: 15rem;
+    overflow-wrap: anywhere;
 }
 
 #timer-is-runing-not {
@@ -28,7 +29,7 @@
 }
 
 #start-time:before {
-    content: 'Beginn:';
+    content: 'Startuhrzeit:';
     margin-right: .6em;
     color: #6c757d;
 }
@@ -59,11 +60,6 @@
         flex-direction: column;
     } 
 
-    #timer-is-runing, #timer-is-runing-not {
-        text-align: start;
-        margin-top: 5px;
-    }
-
     .settings input {
         border-radius: 0;
     }
@@ -81,9 +77,12 @@
     }
 }
 
-/* @media (max-width: 767.98px) {
-
-} */
+@media (max-width: 767.98px) {
+     #timer-is-runing, #timer-is-runing-not {
+        text-align: start;
+        margin-top: 5px;
+    }
+}
 
 .accordion-button:not(.collapsed) {
     background-color: inherit !important;
