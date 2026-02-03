@@ -7,11 +7,13 @@ let display = 0;
 let referenceTime; // Reference time for synchronization
 let soundBool = false;
 let timerRunning = false;
+let defaultSubtitleText = '';
 
 function startStopwatch() {
     const durationInput = document.getElementById('target-time').value;
     const startTimeInput = document.getElementById('start-time').value;
     const headingText = document.getElementById('exam-name').value;
+    const extraText = document.getElementById('exam-extra').value;
     timerRunning = true;
 
     const now = new Date();
@@ -39,6 +41,19 @@ function startStopwatch() {
     if (headingText) {
         document.getElementById('exam-heading').innerText = headingText;
         document.getElementById('exam-heading-subtitle').style.display = 'none';
+    } else {
+        document.getElementById('exam-heading').innerText = "Klausurtimer";
+    }
+    if (!headingText) {
+        document.getElementById('exam-heading-subtitle').innerText = defaultSubtitleText;
+        document.getElementById('exam-heading-subtitle').style.display = 'block';
+    }
+    if (extraText.trim()) {
+        document.getElementById('exam-extra-text').innerText = extraText.trim();
+        document.getElementById('exam-extra-container').classList.remove('d-none');
+    } else {
+        document.getElementById('exam-extra-text').innerText = '';
+        document.getElementById('exam-extra-container').classList.add('d-none');
     }
     let [startHours, startMinutes] = startTimeInput.split(':');
     
@@ -91,6 +106,7 @@ function resetStopwatch() {
     document.getElementById('start-time').value = '';
     document.getElementById('target-time').value = '';
     document.getElementById('exam-name').value = '';
+    document.getElementById('exam-extra').value = '';
     document.getElementById('progress').style.width = '0%';
     document.getElementById('stop-watch-container--done').style.display = 'none';
     document.getElementById('intro-text').style.display = 'none';
@@ -99,6 +115,10 @@ function resetStopwatch() {
     document.getElementById('clock-finish').innerText = '-:-';
     document.getElementById('reset').disabled = true;
     document.getElementById('exam-heading').innerText = "Klausurtimer";
+    document.getElementById('exam-heading-subtitle').innerText = defaultSubtitleText;
+    document.getElementById('exam-heading-subtitle').style.display = 'block';
+    document.getElementById('exam-extra-text').innerText = '';
+    document.getElementById('exam-extra-container').classList.add('d-none');
     timerRunning = false;
 
     document.getElementById('start').disabled = true;
@@ -266,6 +286,7 @@ function initDarkMode() {
 
 document.addEventListener('DOMContentLoaded', function () {
     updateClock();
+    defaultSubtitleText = document.getElementById('exam-heading-subtitle').innerText;
 
     document.getElementById('start-time').addEventListener('input', checkValues);
     document.getElementById('target-time').addEventListener('input', checkValues);
