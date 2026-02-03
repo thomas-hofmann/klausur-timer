@@ -25,10 +25,10 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Tiny5&display=swap" rel="stylesheet">
-        
-        <link href="/assets/css/base.css?v=1.0.3" rel="stylesheet">
-		<link href="/assets/css/stopwatch.css?v=1.0.3" rel="stylesheet">		
-        <script src="/assets/js/stopwatch.js?v=1.0.3"></script>
+        <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+        <link href="/assets/css/base.css?v=1.0.4" rel="stylesheet">
+		<link href="/assets/css/stopwatch.css?v=1.0.4" rel="stylesheet">		
+        <script src="/assets/js/stopwatch.js?v=1.0.4"></script>
 
         <!-- Matomo -->
         <script>
@@ -49,135 +49,148 @@
 
     </head>
     <body class="">
-        <header class="container container--individual main-header rounded-top mb-3 mt-3 position-relative">
-            <div class="row">
-                <div class="col-12 col-md-8">
-                    <h1 class="mb-0">
-                        <span id="exam-heading">Klausurtimer</span>
-                    </h1>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div id="timer-is-runing">
-                        <span class="badge rounded-pill text-bg-success">
-                            <i class="fa-solid fa-circle-play me-1"></i><span>Timer läuft</span>
-                        </span>
+        <div data-aos="zoom-in" data-aos-easing="ease-out-cubic">
+            <header class="container container--individual main-header rounded-top mb-3 mt-3 position-relative">
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <h1 class="mb-0" data-aos="fade-left" data-aos-delay="400">
+                            <span id="exam-heading">Klausurtimer</span>
+                        </h1>
+                        <p class="m-0" id="exam-heading-subtitle" data-aos="fade-left" data-aos-delay="400">
+                            Ein online Timer zur Anzeige der verbleibenden Prüfungszeit.
+                        </p>
                     </div>
-                    <div id="timer-is-runing-not">
-                        <span class="badge rounded-pill text-bg-danger">
-                            <i class="fa-solid fa-circle-stop me-1"></i><span>Timer läuft nicht</span>
-                        </span>
+                    <div class="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="400">
+                        <div id="timer-is-runing">
+                            <span class="badge rounded-pill text-bg-success">
+                                <i class="fa-solid fa-circle-play me-1"></i><span>Timer läuft</span>
+                            </span>
+                        </div>
+                        <div id="timer-is-runing-not">
+                            <span class="badge rounded-pill text-bg-danger">
+                                <i class="fa-solid fa-circle-stop me-1"></i><span>Timer läuft nicht</span>
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </header>
-        <main class="mb-3">
-            <div class="container container--individual">
-                <div class="accordion accordion-flush border shadow-sm mb-3" id="accordionPanelsStayOpenExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                        <button id="accordion-button-settings" class="accordion-button p-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                            <i class="fa-solid fa-sliders me-1"></i> <strong>Einstellungen</strong>
-                        </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                            <div class="accordion-body border-top">
-                                <div class="mb-1 text-muted">
-                                    <small>
-                                        <i class="fa-regular fa-clock"></i>
-                                        <span id="clock-with-seconds">-:-</span>
-                                    </small>
-                                </div>
-                                <div class="input-group settings flex-column flex-lg-row">
-                                    <span class="input-group-text d-none d-lg-inline" id="inputGroup-sizing-default">
-                                        <i class="fa-solid fa-arrow-right fa-beat"></i>
-                                    </span>
-                                    <input class="form-control w-auto settings-input input-time-patch bg-danger-subtle d-none" type="time" id="start-time" placeholder="Startuhrzeit" disabled>
-                                    <input class="form-control w-auto settings-input" type="number" id="target-time" placeholder="Dauer in Minuten" min="1" oninput="this.value = Math.abs(this.value)">
-                                    <input class="form-control w-auto settings-input" type="text" id="exam-name" placeholder="Modulname (optional)">
-                                    <button class="btn btn-success bg-gradient settings-input" id="start" onclick="startStopwatch()" disabled><i class="fa-regular fa-circle-play"></i> Start</button>
-                                    <button class="btn btn-danger bg-gradient settings-input" id="reset" onclick="resetStopwatch()" disabled><i class="fa-solid fa-power-off"></i> Reset</button>
-                                </div>
-                                <h6 class="mt-2">Modus auswählen</h6>
-                                <div class="btn-group align-items-center flex-wrap" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" class="btn-check" name="btnradio" id="countdownOff" autocomplete="off" checked>
-                                    <label class="btn btn-sm btn-outline-primary" for="countdownOff">Ohne Startuhrzeit</label>
-                                    <input type="radio" class="btn-check" name="btnradio" id="countdownOn" autocomplete="off">
-                                    <label class="btn btn-sm btn-outline-primary" for="countdownOn">Mit Startuhrzeit</label>
-                                    <input type="checkbox" class="btn-check" id="soundCheckbox" autocomplete="off">
-                                    <label class="btn btn-sm btn-outline-primary" for="soundCheckbox" id="soundLabel" data-soundtoggle="off" style="min-width: 40px;">
-                                        <i class="fa-solid fa-volume-high" id="soundOnIcon"></i>
-                                        <i class="fa-solid fa-volume-xmark" id="soundOffIcon"></i>
-                                    </label>
-                                </div>
-                                <audio id="sound" src="/assets/audio/alarm.mp3"></audio>
-                                <div class="form-check form-switch mt-2 mb-0">
-                                    <input class="form-check-input" type="checkbox" id="darkModeToggle">
-                                    <label class="form-check-label" for="darkModeToggle"><i class="fa-regular fa-moon"></i> Dark Mode</label>
-                                </div>
-                                <hr class="mt-2 mb-2">
-                                <div>
-                                    <h5>Anleitung</h5>
-                                    <ol class="list-group list-group-numbered">
-                                        <li class="list-group-item"><u class="link-offset-1">Modus auswählen:</u>
-                                            <ul>
-                                                <li>
-                                                    <strong>Ohne Startuhrzeit:</strong> Startet den Timer sofort.
-                                                </li>
-                                                <li>
-                                                    <strong>Mit Startuhrzeit:</strong> Startet den Timer ab der angegebenen <u class="link-offset-1">Startuhrzeit</u>. Bis dahin läuft ein Countdown.
-                                                </li>
-                                                <li>
-                                                    <strong>Optional:</strong> Es ist möglich, einen Alarmsound abspielen zu lassen. Dieser ist standardmäßig deaktiviert.
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <u class="link-offset-1">Dauer in Minuten</u> und den <u class="link-offset-1">Modulname</u> eintragen.
-                                        </li>
-                                         <li class="list-group-item">
-                                            <u class="link-offset-1">Start drücken!</u> Das Menü klappt sich zu und der Timer läuft nach den gewählten Einstellungen.
-                                        </li>
-                                    </ol>
+            </header>
+            <main class="mb-3">
+                <div class="container container--individual">
+                    <div class="accordion accordion-flush border shadow-sm mb-3" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button id="accordion-button-settings" class="accordion-button p-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                <i class="fa-solid fa-sliders me-1"></i> <strong>Einstellungen</strong>
+                            </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                                <div class="accordion-body border-top">
+                                    <div class="mb-1 text-muted">
+                                        <small>
+                                            <i class="fa-regular fa-clock"></i>
+                                            <span id="clock-with-seconds">-:-</span>
+                                        </small>
+                                    </div>
+                                    <div class="input-group settings flex-column flex-lg-row">
+                                        <span class="input-group-text d-none d-lg-inline" id="inputGroup-sizing-default">
+                                            <i class="fa-solid fa-arrow-right fa-beat"></i>
+                                        </span>
+                                        <input class="form-control w-auto settings-input input-time-patch bg-danger-subtle d-none" type="time" id="start-time" placeholder="Startuhrzeit" disabled>
+                                        <input class="form-control w-auto settings-input" type="number" id="target-time" placeholder="Dauer in Minuten" min="1" oninput="this.value = Math.abs(this.value)">
+                                        <input class="form-control w-auto settings-input" type="text" id="exam-name" placeholder="Modulname (optional)">
+                                        <button class="btn btn-success bg-gradient settings-input" id="start" onclick="startStopwatch()" disabled><i class="fa-regular fa-circle-play"></i> Start</button>
+                                        <button class="btn btn-danger bg-gradient settings-input" id="reset" onclick="resetStopwatch()" disabled><i class="fa-solid fa-power-off"></i> Reset</button>
+                                    </div>
+                                    <h6 class="mt-2">Modus auswählen</h6>
+                                    <div class="btn-group align-items-center flex-wrap" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check" name="btnradio" id="countdownOff" autocomplete="off" checked>
+                                        <label class="btn btn-sm btn-outline-primary" for="countdownOff">Ohne Startuhrzeit</label>
+                                        <input type="radio" class="btn-check" name="btnradio" id="countdownOn" autocomplete="off">
+                                        <label class="btn btn-sm btn-outline-primary" for="countdownOn">Mit Startuhrzeit</label>
+                                        <input type="checkbox" class="btn-check" id="soundCheckbox" autocomplete="off">
+                                        <label class="btn btn-sm btn-outline-primary" for="soundCheckbox" id="soundLabel" data-soundtoggle="off" style="min-width: 40px;">
+                                            <i class="fa-solid fa-volume-high" id="soundOnIcon"></i>
+                                            <i class="fa-solid fa-volume-xmark" id="soundOffIcon"></i>
+                                        </label>
+                                    </div>
+                                    <audio id="sound" src="/assets/audio/alarm.mp3"></audio>
+                                    <div class="form-check form-switch mt-2 mb-0">
+                                        <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                                        <label class="form-check-label" for="darkModeToggle"><i class="fa-regular fa-moon"></i> Dark Mode</label>
+                                    </div>
+                                    <hr class="mt-2 mb-2">
+                                    <div>
+                                        <h5>Anleitung</h5>
+                                        <ol class="list-group list-group-numbered">
+                                            <li class="list-group-item"><u class="link-offset-1">Modus auswählen:</u>
+                                                <ul>
+                                                    <li>
+                                                        <strong>Ohne Startuhrzeit:</strong> Startet den Timer sofort.
+                                                    </li>
+                                                    <li>
+                                                        <strong>Mit Startuhrzeit:</strong> Startet den Timer ab der angegebenen <u class="link-offset-1">Startuhrzeit</u>. Bis dahin läuft ein Countdown.
+                                                    </li>
+                                                    <li>
+                                                        <strong>Optional:</strong> Es ist möglich, einen Alarmsound abspielen zu lassen. Dieser ist standardmäßig deaktiviert.
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <u class="link-offset-1">Dauer in Minuten</u> und den <u class="link-offset-1">Modulname</u> eintragen.
+                                            </li>
+                                            <li class="list-group-item">
+                                                <u class="link-offset-1">Start drücken!</u> Das Menü klappt sich zu und der Timer läuft nach den gewählten Einstellungen.
+                                            </li>
+                                        </ol>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="text-center fs-1 text-white bg-dark shadow-sm border border-dark-subtle p-3 position-relative timer-container">
-                    <div class="fs-2 text-secondary lh-1 fw-bold">
-                        <i class="fa-regular fa-clock"></i>
-                        <span id="clock">-:-</span>
-                    </div>
-                    <div class="d-flex justify-content-around">
-                        <div class="text-success fs-2 fw-bold">
-                            <i class="fa-solid fa-pen-fancy"></i> <span id="clock-start">-:-</span>
+                    <div class="text-center fs-1 text-white bg-dark shadow-sm border border-dark-subtle p-3 position-relative timer-container">
+                        <div class="fs-2 text-secondary lh-1 fw-bold">
+                            <i class="fa-regular fa-clock"></i>
+                            <span id="clock">-:-</span>
                         </div>
-                        <div class="text-danger fs-2 fw-bold">
-                            <i class="fa-solid fa-flag-checkered"></i> <span id="clock-finish">-:-</span>
+                        <div class="d-flex justify-content-around">
+                            <div class="text-success fs-2 fw-bold">
+                                <i class="fa-solid fa-pen-fancy"></i> <span id="clock-start">-:-</span>
+                            </div>
+                            <div class="text-danger fs-2 fw-bold">
+                                <i class="fa-solid fa-flag-checkered"></i> <span id="clock-finish">-:-</span>
+                            </div>
+                        </div>
+                        <hr class="border-dark-subtle mb-0">
+                        <div id="stop-watch-container--runing" class="d-flex justify-content-evenly align-items-center stopwatch-flex-container lh-1">
+                            <div class="display-4 fw-bold">Noch</div>
+                            <div id="stopwatch" class="stopwatch fw-bold">0</div>
+                            <div class="display-4 fw-bold" id="minutes">Min.</div>
+                        </div>
+                        <div id="progress-bar" class="bg-dark-subtle bg-gradient border border-dark-subtle">
+                            <div id="progress" class="bg-gradient"></div>
+                        </div>
+                        <div id="intro-text" class="fw-bold countdown-info-text">
+                            Dann geht es los!
+                        </div>
+                        <div id="stop-watch-container--done" class="fw-bold stop-watch-container--done border border-dark-subtle p-2 mt-3 bg-danger bg-gradient text-white">
+                            <p class="fs-2 mb-0">
+                                <i class="fa-solid fa-flag-checkered fa-beat"></i> <span class="ps-2 pe-2">Die Zeit ist um!</span> <i class="fa-solid fa-flag-checkered fa-beat"></i>
+                            </p>
                         </div>
                     </div>
-                    <hr class="border-dark-subtle mb-0">
-                    <div id="stop-watch-container--runing" class="d-flex justify-content-evenly align-items-center stopwatch-flex-container lh-1">
-                        <div class="display-4 fw-bold">Noch</div>
-                        <div id="stopwatch" class="stopwatch fw-bold">0</div>
-                        <div class="display-4 fw-bold" id="minutes">Min.</div>
-                    </div>
-                    <div id="progress-bar" class="bg-dark-subtle bg-gradient border border-dark-subtle">
-                        <div id="progress" class="bg-gradient"></div>
-                    </div>
-                    <div id="intro-text" class="fw-bold countdown-info-text">
-                        Dann geht es los!
-                    </div>
-                    <div id="stop-watch-container--done" class="fw-bold stop-watch-container--done border border-dark-subtle p-2 mt-3 bg-danger bg-gradient text-white">
-                        <p class="fs-2 mb-0">
-                            <i class="fa-solid fa-flag-checkered fa-beat"></i> <span class="ps-2 pe-2">Die Zeit ist um!</span> <i class="fa-solid fa-flag-checkered fa-beat"></i>
-                        </p>
-                    </div>
                 </div>
-            </div>
-        </main>
-        <footer class="container container--individual rounded-bottom main-footer mb-3">
-            <a  target="_blank" class="link-dark link-offset-2 link-underline-opacity-0" href="https://hofmann-thomas.de"><small><i class="fa-regular fa-copyright"></i> Thomas Hofmann</small></a>
-        </footer>
+            </main>
+            <footer class="container container--individual rounded-bottom main-footer mb-3">
+                <a  target="_blank" class="link-dark link-offset-2 link-underline-opacity-0" href="https://hofmann-thomas.de"><small><i class="fa-regular fa-copyright"></i> <script>document.write(new Date().getFullYear())</script> Thomas Hofmann</small></a>
+            </footer>
+        <div>
     </body>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 700,
+            easing: 'ease-out-cubic',
+            once: true,
+        });
+    </script>
 </html>

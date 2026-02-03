@@ -37,7 +37,8 @@ function startStopwatch() {
 
     document.getElementById('accordion-button-settings').click();
     if (headingText) {
-        document.getElementById('exam-heading').innerText = headingText; 
+        document.getElementById('exam-heading').innerText = headingText;
+        document.getElementById('exam-heading-subtitle').style.display = 'none';
     }
     let [startHours, startMinutes] = startTimeInput.split(':');
     
