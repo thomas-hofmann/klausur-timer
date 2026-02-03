@@ -9,11 +9,44 @@ let soundBool = false;
 let timerRunning = false;
 let defaultSubtitleText = '';
 
+function syncSubtitleVisibility() {
+    const headingText = document.getElementById('exam-name').value.trim();
+    const extraText = document.getElementById('exam-extra').value.trim();
+    const subtitle = document.getElementById('exam-heading-subtitle');
+
+    if (headingText || extraText) {
+        subtitle.style.display = 'none';
+    } else {
+        subtitle.innerText = defaultSubtitleText;
+        subtitle.style.display = 'block';
+    }
+}
+
+function syncHeadingFromInput() {
+    const headingText = document.getElementById('exam-name').value.trim();
+    if (headingText) {
+        document.getElementById('exam-heading').innerText = headingText;
+    } else {
+        document.getElementById('exam-heading').innerText = "Klausurtimer";
+    }
+    syncSubtitleVisibility();
+}
+
+function syncExtraTextFromInput() {
+    const extraText = document.getElementById('exam-extra').value.trim();
+    if (extraText) {
+        document.getElementById('exam-extra-text').innerText = extraText;
+        document.getElementById('exam-extra-container').classList.remove('d-none');
+    } else {
+        document.getElementById('exam-extra-text').innerText = '';
+        document.getElementById('exam-extra-container').classList.add('d-none');
+    }
+    syncSubtitleVisibility();
+}
+
 function startStopwatch() {
     const durationInput = document.getElementById('target-time').value;
     const startTimeInput = document.getElementById('start-time').value;
-    const headingText = document.getElementById('exam-name').value;
-    const extraText = document.getElementById('exam-extra').value;
     timerRunning = true;
 
     const now = new Date();
@@ -38,23 +71,8 @@ function startStopwatch() {
     }
 
     document.getElementById('accordion-button-settings').click();
-    if (headingText) {
-        document.getElementById('exam-heading').innerText = headingText;
-        document.getElementById('exam-heading-subtitle').style.display = 'none';
-    } else {
-        document.getElementById('exam-heading').innerText = "Klausurtimer";
-    }
-    if (!headingText) {
-        document.getElementById('exam-heading-subtitle').innerText = defaultSubtitleText;
-        document.getElementById('exam-heading-subtitle').style.display = 'block';
-    }
-    if (extraText.trim()) {
-        document.getElementById('exam-extra-text').innerText = extraText.trim();
-        document.getElementById('exam-extra-container').classList.remove('d-none');
-    } else {
-        document.getElementById('exam-extra-text').innerText = '';
-        document.getElementById('exam-extra-container').classList.add('d-none');
-    }
+    syncHeadingFromInput();
+    syncExtraTextFromInput();
     let [startHours, startMinutes] = startTimeInput.split(':');
     
     if (document.getElementById('countdownOn').checked == true) {
@@ -114,11 +132,8 @@ function resetStopwatch() {
     document.getElementById('clock-start').innerText = '-:-';
     document.getElementById('clock-finish').innerText = '-:-';
     document.getElementById('reset').disabled = true;
-    document.getElementById('exam-heading').innerText = "Klausurtimer";
-    document.getElementById('exam-heading-subtitle').innerText = defaultSubtitleText;
-    document.getElementById('exam-heading-subtitle').style.display = 'block';
-    document.getElementById('exam-extra-text').innerText = '';
-    document.getElementById('exam-extra-container').classList.add('d-none');
+    syncHeadingFromInput();
+    syncExtraTextFromInput();
     timerRunning = false;
 
     document.getElementById('start').disabled = true;
@@ -201,7 +216,11 @@ function updateClock() {
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
-    const currentTime = `${hours}:${minutes}`;
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = String(now.getFullYear()).slice(-2);
+    const currentDate = `${day}.${month}.${year}`;
+    const currentTime = `${currentDate} - ${hours}:${minutes}`;
     const currentTimeWithSeconds = `${hours}:${minutes}:${seconds}`;
     document.getElementById('clock').textContent = currentTime;
     document.getElementById('clock-with-seconds').textContent = currentTimeWithSeconds;
@@ -290,6 +309,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('start-time').addEventListener('input', checkValues);
     document.getElementById('target-time').addEventListener('input', checkValues);
+    document.getElementById('exam-name').addEventListener('input', syncHeadingFromInput);
+    document.getElementById('exam-extra').addEventListener('input', syncExtraTextFromInput);
     // document.getElementById('exam-name').addEventListener('input', checkValues);
     document.getElementById('countdownOn').addEventListener('click', checkBegin);
     document.getElementById('countdownOff').addEventListener('click', checkBegin);
@@ -301,6 +322,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Dark Mode Zustand beim Laden wiederherstellen
     initDarkMode();
+    syncHeadingFromInput();
+    syncExtraTextFromInput();
     
     setInterval(updateClock, 1000);
 });
