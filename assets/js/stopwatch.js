@@ -170,7 +170,7 @@ function updateStopwatch() {
             document.getElementById('stopwatch').textContent = "0";
             document.getElementById('progress').style.width = '0%';
             document.getElementById('progress-bar').style.display = 'none';
-            document.getElementById('stop-watch-container--done').style.display = 'block';
+            document.getElementById('stop-watch-container--done').style.display = 'flex';
             timerRunning = false;
 
             if (soundBool == true) {

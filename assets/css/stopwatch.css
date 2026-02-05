@@ -106,4 +106,13 @@
 
 .stop-watch-container--done {
     display: none;
+    height: 50px;
+    margin-top: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.stop-watch-container--done p {
+    margin: 0;
+    line-height: 1;
 }
