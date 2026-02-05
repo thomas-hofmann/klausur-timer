@@ -7,6 +7,7 @@ let display = 0;
 let soundBool = false;
 let timerRunning = false;
 let defaultSubtitleText = '';
+let skipInitialProgress = false;
 
 function handleConfigInputChange(event) {
     if (timerRunning && event && event.target && event.target.id === 'target-time') {
@@ -134,6 +135,7 @@ function startStopwatch() {
         timer = null;
     }
 
+    skipInitialProgress = true;
     updateStopwatch();
     timer = setInterval(updateStopwatch, 1000);
 
@@ -233,18 +235,31 @@ function updateStopwatch() {
 
     document.getElementById('stopwatch').textContent = display;
 
-    const elapsed = phase === 'countdownToStart' ? (startTime - now) / 1000 : (totalDuration - remainingSeconds);
-    const progressPercentage = (elapsed / totalDuration) * 100;
+    if (phase === 'countdownToTarget' && totalDuration > 0) {
+        if (skipInitialProgress) {
+            document.getElementById('progress').style.width = '100%';
+            skipInitialProgress = false;
+            return;
+        }
+        const remainingMs = targetTime - now;
+        const remainingRatio = Math.max(0, Math.min(1, remainingMs / (totalDuration * 1000)));
+        const elapsedRatio = 1 - remainingRatio;
+        const progressPercentage = elapsedRatio * 100;
 
-    if (progressPercentage <= 50) {
-        document.getElementById('progress').style.backgroundColor = '#198754';
-    } else if (progressPercentage <= 80) {
-        document.getElementById('progress').style.backgroundColor = '#ffc107';
-    } else {
-        document.getElementById('progress').style.backgroundColor = '#dc3545';
+        if (progressPercentage <= 50) {
+            document.getElementById('progress').style.backgroundColor = '#198754';
+        } else if (progressPercentage <= 80) {
+            document.getElementById('progress').style.backgroundColor = '#ffc107';
+        } else {
+            document.getElementById('progress').style.backgroundColor = '#dc3545';
+        }
+
+        document.getElementById('progress').style.width = `${remainingRatio * 100}%`;
     }
 
-    document.getElementById('progress').style.width = `${100 - progressPercentage}%`;
+    if (phase === 'countdownToStart') {
+        document.getElementById('progress').style.backgroundColor = '#198754';
+    }
 }
 
 function updateClock() {
