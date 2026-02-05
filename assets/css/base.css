@@ -9,8 +9,8 @@ html, body {
 body {
   background-color: #f3f5f7;
   background-image:
-    linear-gradient(rgba(108, 117, 125, 0.18) 2px, transparent 2px),
-    linear-gradient(90deg, rgba(108, 117, 125, 0.18) 2px, transparent 2px),
+    linear-gradient(rgba(108, 117, 125, 0.08) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(108, 117, 125, 0.08) 2px, transparent 2px),
     linear-gradient(rgba(108, 117, 125, 0.08) 1px, transparent 1px),
     linear-gradient(90deg, rgba(108, 117, 125, 0.08) 1px, #f3f5f7 1px);
   background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
@@ -21,8 +21,8 @@ body {
 body.dark-mode {
   background-color: #212529 !important;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.08) 2px, transparent 2px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 2px, transparent 2px),
+    linear-gradient(rgba(255, 255, 255, 0.05) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 2px, transparent 2px),
     linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, #212529 1px) !important;
   background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
