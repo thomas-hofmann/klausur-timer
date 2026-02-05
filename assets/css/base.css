@@ -76,6 +76,19 @@ hr {
     color: #cbd5e1 !important;
 }
 
+.dark-mode .main-footer {
+    color: #cbd5e1 !important;
+}
+
+.dark-mode .main-footer a,
+.dark-mode .main-footer a i {
+    color: #cbd5e1 !important;
+}
+
+.dark-mode #exam-heading-subtitle {
+    color: #cbd5e1 !important;
+}
+
 .dark-mode .accordion-button {
     background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
     color: white;
