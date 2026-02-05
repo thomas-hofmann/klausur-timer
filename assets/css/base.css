@@ -8,7 +8,7 @@ html, body {
 
 h1, h2, h3 {
     font-weight: bold;
-    line-height: 1.1;
+    line-height: 1.0;
 }
 
 #exam-extra-container.extra-callout {
@@ -78,6 +78,19 @@ hr {
 .dark-mode .list-group-item {
     background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
      color: white;
+}
+
+.settings-accordion .accordion-button {
+    padding: .5rem .75rem;
+    font-size: .95rem;
+}
+
+.settings-accordion .accordion-body {
+    padding: .75rem;
+}
+
+.settings-accordion .accordion-button i {
+    font-size: .95em;
 }
 
 .timer-container {
