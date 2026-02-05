@@ -1,6 +1,11 @@
 .stopwatch {
     font-size: 15rem;
     overflow-wrap: anywhere;
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+    min-width: 3ch;
+    text-align: center;
 }
 
 #timer-is-runing-not {
