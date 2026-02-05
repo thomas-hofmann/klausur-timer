@@ -4,10 +4,23 @@ let targetTime;
 let totalDuration;
 let phase = 'countdownToStart'; // Track current phase
 let display = 0;
-let referenceTime; // Reference time for synchronization
 let soundBool = false;
 let timerRunning = false;
 let defaultSubtitleText = '';
+
+function handleConfigInputChange(event) {
+    if (timerRunning && event && event.target && event.target.id === 'target-time') {
+        const note = document.getElementById('duration-note');
+        if (note) note.classList.remove('d-none');
+    }
+    if (timerRunning && event && event.target && event.target.id === 'start-time') {
+        const note = document.getElementById('start-time-note');
+        if (note) {
+            note.classList.remove('d-none');
+        }
+    }
+    checkValues();
+}
 
 function syncSubtitleVisibility() {
     const headingText = document.getElementById('exam-name').value.trim();
@@ -45,9 +58,13 @@ function syncExtraTextFromInput() {
 }
 
 function startStopwatch() {
+    const note = document.getElementById('start-time-note');
+    if (note) note.classList.add('d-none');
+    const durationNote = document.getElementById('duration-note');
+    if (durationNote) durationNote.classList.add('d-none');
+
     const durationInput = document.getElementById('target-time').value;
     const startTimeInput = document.getElementById('start-time').value;
-    timerRunning = true;
 
     const now = new Date();
 
@@ -70,12 +87,13 @@ function startStopwatch() {
         document.getElementById('clock-start').innerText = timeString;
     }
 
+    timerRunning = true;
+
     document.getElementById('accordion-button-settings').click();
     syncHeadingFromInput();
     syncExtraTextFromInput();
-    let [startHours, startMinutes] = startTimeInput.split(':');
-    
     if (document.getElementById('countdownOn').checked == true) {
+        let [startHours, startMinutes] = startTimeInput.split(':');
         startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), startHours, startMinutes);
     } else {
         startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds());
@@ -100,17 +118,28 @@ function startStopwatch() {
     document.getElementById('progress').style.backgroundColor = '#198754';
     document.getElementById('stop-watch-container--done').style.display = 'none';
 
-    phase = 'countdownToStart';
-    referenceTime = new Date();
-    
+    totalDuration = (targetTime - startTime) / 1000;
+    if (document.getElementById('countdownOn').checked == true && startTime > now) {
+        phase = 'countdownToStart';
+        document.getElementById('intro-text').style.display = 'block';
+        document.getElementById('progress-bar').style.display = 'none';
+        document.getElementById('progress').style.width = '100%';
+    } else {
+        phase = 'countdownToTarget';
+        document.getElementById('intro-text').style.display = 'none';
+        document.getElementById('progress-bar').style.display = 'block';
+    }
     if (timer) {
         clearInterval(timer);
         timer = null;
     }
 
+    updateStopwatch();
     timer = setInterval(updateStopwatch, 1000);
 
-    document.getElementById('start-time').value = '';
+    if (document.getElementById('countdownOn').checked == false) {
+        document.getElementById('start-time').value = '';
+    }
     document.getElementById('reset').disabled = false;
     document.getElementById('start').disabled = true;
 }
@@ -137,6 +166,10 @@ function resetStopwatch() {
     timerRunning = false;
 
     document.getElementById('start').disabled = true;
+    const note = document.getElementById('start-time-note');
+    if (note) note.classList.add('d-none');
+    const durationNote = document.getElementById('duration-note');
+    if (durationNote) durationNote.classList.add('d-none');
     
     document.getElementById('soundLabel').setAttribute('data-soundtoggle', 'off');
     document.getElementById('soundOnIcon').style.display = 'none';
@@ -152,6 +185,8 @@ function updateStopwatch() {
     if (phase === 'countdownToStart') {
         remainingTime = startTime - now;
         document.getElementById('intro-text').style.display = 'block';
+        document.getElementById('progress-bar').style.display = 'none';
+        document.getElementById('progress').style.width = '100%';
         if (remainingTime <= 0) {
             phase = 'countdownToTarget';
             document.getElementById('intro-text').style.display = 'none';
@@ -160,7 +195,6 @@ function updateStopwatch() {
             document.getElementById('stopwatch').textContent = "0";
             document.getElementById('progress').style.width = '100%';
             document.getElementById('progress').style.backgroundColor = '#198754';
-            referenceTime = now; // Reset reference time for the next phase
             return; // Skip the rest until the next interval
         }
     } else if (phase === 'countdownToTarget') {
@@ -177,8 +211,8 @@ function updateStopwatch() {
 
             if (soundBool == true) {
                 document.getElementById('sound').play();
-                clearInterval(timer);
             }
+            clearInterval(timer);
             console.log('Fertig!');
             
             return;
@@ -243,6 +277,34 @@ function checkValues() {
 }
 
 function checkBegin() {
+    const durationNote = document.getElementById('duration-note');
+    if (durationNote) durationNote.classList.add('d-none');
+    // Soft reset on mode change: stop timer UI but keep inputs
+    if (timerRunning) {
+        const confirmed = window.confirm('Timer läuft. Moduswechsel stoppt den Timer. Fortfahren?');
+        if (!confirmed) {
+            // revert toggle selection
+            if (document.getElementById('countdownOn').checked) {
+                document.getElementById('countdownOff').checked = true;
+            } else {
+                document.getElementById('countdownOn').checked = true;
+            }
+            checkValues();
+            return;
+        }
+        clearInterval(timer);
+        timer = null;
+        timerRunning = false;
+        document.getElementById('timer-is-runing').style.display = 'none';
+        document.getElementById('timer-is-runing-not').style.display = 'block';
+        document.getElementById('progress-bar').style.display = 'none';
+        document.getElementById('stop-watch-container--done').style.display = 'none';
+        document.getElementById('intro-text').style.display = 'none';
+        document.getElementById('progress').style.width = '0%';
+        document.getElementById('stopwatch').textContent = "0";
+        document.getElementById('minutes').innerText = 'Min.';
+    }
+
     if (document.getElementById('countdownOn').checked == true) {
         document.getElementById('start-time').disabled = false;
         document.getElementById('start-time').classList.remove('bg-danger-subtle');
@@ -251,6 +313,8 @@ function checkBegin() {
         document.getElementById('start-time').disabled = true;
         document.getElementById('start-time').classList.add('bg-danger-subtle');
         document.getElementById('start-time').classList.add('d-none');
+        const note = document.getElementById('start-time-note');
+        if (note) note.classList.add('d-none');
     }
     checkValues();
 }
@@ -309,8 +373,8 @@ document.addEventListener('DOMContentLoaded', function () {
     updateClock();
     defaultSubtitleText = document.getElementById('exam-heading-subtitle').innerText;
 
-    document.getElementById('start-time').addEventListener('input', checkValues);
-    document.getElementById('target-time').addEventListener('input', checkValues);
+    document.getElementById('start-time').addEventListener('input', handleConfigInputChange);
+    document.getElementById('target-time').addEventListener('input', handleConfigInputChange);
     document.getElementById('exam-name').addEventListener('input', syncHeadingFromInput);
     document.getElementById('exam-extra').addEventListener('input', syncExtraTextFromInput);
     // document.getElementById('exam-name').addEventListener('input', checkValues);
