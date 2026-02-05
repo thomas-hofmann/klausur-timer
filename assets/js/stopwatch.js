@@ -171,6 +171,8 @@ function updateStopwatch() {
             document.getElementById('progress').style.width = '0%';
             document.getElementById('progress-bar').style.display = 'none';
             document.getElementById('stop-watch-container--done').style.display = 'flex';
+            document.getElementById('timer-is-runing').style.display = 'none';
+            document.getElementById('timer-is-runing-not').style.display = 'block';
             timerRunning = false;
 
             if (soundBool == true) {
