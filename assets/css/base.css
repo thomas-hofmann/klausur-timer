@@ -51,6 +51,11 @@ h1, h2, h3 {
     color: #0d6efd;
 }
 
+.dark-mode #start-time-note,
+.dark-mode #duration-note {
+    color: #cbd5e1 !important;
+}
+
 .dark-mode #exam-extra-container.extra-callout {
     background: rgba(13, 110, 253, 0.12);
     border-color: rgba(13, 110, 253, 0.35);
