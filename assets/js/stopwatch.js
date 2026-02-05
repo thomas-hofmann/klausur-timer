@@ -222,8 +222,8 @@ function updateClock() {
     const currentDate = `${day}.${month}.${year}`;
     const currentTime = `${currentDate} - ${hours}:${minutes}`;
     const currentTimeWithSeconds = `${hours}:${minutes}:${seconds}`;
-    document.getElementById('clock').textContent = currentTime;
     document.getElementById('clock-with-seconds').textContent = currentTimeWithSeconds;
+    document.getElementById('clock-header').textContent = currentTime;
 }
 
 function checkValues() {

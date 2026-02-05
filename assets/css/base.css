@@ -11,6 +11,20 @@ h1, h2, h3 {
     line-height: 1.1;
 }
 
+#exam-extra-container.extra-callout {
+    background: #f7f9fc;
+    border: 1px solid #e3e8f0;
+    border-left: 4px solid #0d6efd;
+    border-radius: 8px;
+    padding: .5rem .75rem;
+    display: inline-block;
+}
+
+.dark-mode #exam-extra-container.extra-callout {
+    background: rgba(13, 110, 253, 0.12);
+    border-color: rgba(13, 110, 253, 0.35);
+}
+
 .container--individual {
     border: 1px solid #dee2e6;
     padding: 1rem;
@@ -26,6 +40,16 @@ hr {
 .dark-mode .container {
     background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
     color: white;
+}
+
+.dark-mode #clock-header,
+.dark-mode #clock-with-seconds {
+    color: #cbd5e1 !important;
+}
+
+.dark-mode .clock-muted,
+.dark-mode .clock-muted i {
+    color: #cbd5e1 !important;
 }
 
 .dark-mode .accordion-button {

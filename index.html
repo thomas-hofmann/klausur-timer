@@ -52,7 +52,9 @@
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
-            var u="https://analytics.hofmann-thomas.de/";
+            var isLocal = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+            if (isLocal) return;
+            var u="//analytics.hofmann-thomas.de/";
             _paq.push(['setTrackerUrl', u+'matomo.php']);
             _paq.push(['setSiteId', '3']);
             var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
@@ -67,14 +69,15 @@
             <header class="container container--individual main-header rounded-top mb-3 mt-3 position-relative">
                 <div class="row">
                     <div class="col-12 col-md-8">
+                        <div class="text-muted small mb-1" id="clock-header">-:-</div>
                         <h1 class="mb-1" data-aos="fade-left" data-aos-delay="400">
                             <span id="exam-heading">Klausurtimer</span>
                         </h1>
                         <p class="m-0 mt-1" id="exam-heading-subtitle" data-aos="fade-left" data-aos-delay="400">
                             Ein online Timer zur Anzeige der verbleibenden Prüfungszeit.
                         </p>
-                        <div id="exam-extra-container" class="mt-1 d-none">
-                            <h6 class="mb-1"><i class="fa-solid fa-circle-info"></i> <span>Zusatzinformationen</span></h6>
+                        <div id="exam-extra-container" class="mt-1 extra-callout">
+                            <h6 class="mb-1"><small><i class="fa-solid fa-circle-info"></i> <span>Zusatzinformationen</span></small></h6>
                             <p class="mb-0 small" id="exam-extra-text"></p>
                         </div>
                     </div>
@@ -103,7 +106,7 @@
                             </h2>
                             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                                 <div class="accordion-body p-3 border-top">
-                                    <div class="mb-1 text-muted">
+                                    <div class="mb-1 text-muted clock-muted">
                                         <small>
                                             <i class="fa-regular fa-clock"></i>
                                             <span id="clock-with-seconds">-:-</span>
@@ -167,9 +170,6 @@
                         </div>
                     </div>
                     <div class="text-center fs-1 text-white bg-dark shadow-sm border border-dark-subtle p-3 position-relative timer-container">
-                        <div class="fs-2 text-secondary lh-1">
-                            <span id="clock">-:-</span>
-                        </div>
                         <div class="d-flex justify-content-around">
                             <div class="text-success fs-2 fw-bold">
                                 <i class="fa-solid fa-pen-fancy"></i> <span id="clock-start">-:-</span>
