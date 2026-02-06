@@ -400,6 +400,10 @@ function handleDarkModeToggle() {
         document.body.classList.add('bg-dark');
         document.body.classList.add('bg-gradient');
         document.body.classList.add('dark-mode');
+        const moonIcon = document.getElementById('darkModeIconMoon');
+        const sunIcon = document.getElementById('darkModeIconSun');
+        if (moonIcon) moonIcon.style.display = 'none';
+        if (sunIcon) sunIcon.style.display = 'inline-block';
         localStorage.setItem('darkMode', 'on');
     } else {
         document.body.classList.remove('bg-dark');
@@ -407,6 +411,10 @@ function handleDarkModeToggle() {
         document.body.classList.remove('dark-mode');
         document.body.classList.add('bg-body-tertiary');
         document.body.classList.add('light-mode');
+        const moonIcon = document.getElementById('darkModeIconMoon');
+        const sunIcon = document.getElementById('darkModeIconSun');
+        if (moonIcon) moonIcon.style.display = 'inline-block';
+        if (sunIcon) sunIcon.style.display = 'none';
         localStorage.setItem('darkMode', 'off');
     }
 }
@@ -420,10 +428,18 @@ function initDarkMode() {
         document.body.classList.add('bg-gradient');
         document.body.classList.add('dark-mode');
         toggle.checked = true;
+        const moonIcon = document.getElementById('darkModeIconMoon');
+        const sunIcon = document.getElementById('darkModeIconSun');
+        if (moonIcon) moonIcon.style.display = 'none';
+        if (sunIcon) sunIcon.style.display = 'inline-block';
     } else {
         document.body.classList.add('bg-body-tertiary');
         document.body.classList.add('light-mode');
         toggle.checked = false;
+        const moonIcon = document.getElementById('darkModeIconMoon');
+        const sunIcon = document.getElementById('darkModeIconSun');
+        if (moonIcon) moonIcon.style.display = 'inline-block';
+        if (sunIcon) sunIcon.style.display = 'none';
     }
 }
 

@@ -154,3 +154,34 @@ hr {
   line-height: 1.5;
   white-space: nowrap;
 }
+
+.btn-dark-toggle:hover {
+    color: var(--bs-btn-hover-color) !important;
+    background-color: var(--bs-btn-hover-bg)!important;
+    border-color: var(--bs-btn-hover-border-color)!important;
+}
+
+.btn-dark-toggle-check:checked + .btn-dark-toggle {
+    color: var(--bs-btn-active-color);
+    background-color: var(--bs-btn-active-bg);
+    border-color: var(--bs-btn-active-border-color);
+}
+
+.dark-mode .btn-dark-toggle,
+.dark-mode .btn-dark-fullscreen {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+    background-color: transparent !important;
+}
+
+.dark-mode .btn-dark-toggle:hover,
+.dark-mode .btn-dark-fullscreen:hover,
+.dark-mode .btn-dark-toggle:focus,
+.dark-mode .btn-dark-fullscreen:focus,
+.dark-mode .btn-dark-toggle:active,
+.dark-mode .btn-dark-fullscreen:active {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
+    box-shadow: none;
+}

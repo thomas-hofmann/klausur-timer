@@ -86,11 +86,17 @@
                             <p class="mb-0 small" id="exam-extra-text"></p>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-end align-items-start flex-shrink-0" data-aos="zoom-in" data-aos-delay="400">
-                        <button class="btn btn-sm btn-outline-secondary" id="fullscreen-toggle" type="button" aria-pressed="false" title="Vollbild">
+                    <div class="d-flex flex-column flex-md-row justify-content-md-end align-items-end align-items-md-start gap-2 flex-shrink-0" data-aos="zoom-in" data-aos-delay="400">
+                        <input type="checkbox" class="btn-check btn-dark-toggle-check" id="darkModeToggle" autocomplete="off">
+                        <label class="btn btn-sm btn-outline-dark btn-dark-toggle" for="darkModeToggle" id="darkModeToggleLabel" title="Dark Mode">
+                            <i class="fa-regular fa-moon" id="darkModeIconMoon"></i>
+                            <i class="fa-regular fa-sun" id="darkModeIconSun"></i>
+                            <span>Dark</span>
+                        </label>
+                        <button class="btn btn-sm btn-outline-dark btn-dark-fullscreen" id="fullscreen-toggle" type="button" aria-pressed="false" title="Vollbild">
                             <i class="fa-solid fa-expand" id="fullscreen-enter-icon"></i>
                             <i class="fa-solid fa-compress" id="fullscreen-exit-icon"></i>
-                            <span class="ms-1" id="fullscreen-label">Vollbild</span>
+                            <span id="fullscreen-label">Vollbild</span>
                         </button>
                     </div>
                 </div>
@@ -137,11 +143,7 @@
                                         </label>
                                     </div>
                                     <audio id="sound" src="assets/audio/alarm.mp3"></audio>
-                                    <div class="form-check form-switch mt-2 mb-0">
-                                        <input class="form-check-input" type="checkbox" id="darkModeToggle">
-                                        <label class="form-check-label" for="darkModeToggle"><i class="fa-regular fa-moon"></i>Dark Mode</label>
-                                    </div>
-                                    <hr class="mt-2 mb-2">
+                                    <hr class="mt-3 mb-2">
                                     <div>
                                         <h5>Anleitung</h5>
                                         <ol class="list-group list-group-numbered">
