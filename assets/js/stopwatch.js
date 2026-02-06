@@ -350,6 +350,49 @@ function soundToggle() {
     }
 }
 
+function isFullscreenActive() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement);
+}
+
+function setFullscreenButtonState() {
+    const button = document.getElementById('fullscreen-toggle');
+    if (!button) return;
+    const enterIcon = document.getElementById('fullscreen-enter-icon');
+    const exitIcon = document.getElementById('fullscreen-exit-icon');
+    const label = document.getElementById('fullscreen-label');
+    const isActive = isFullscreenActive();
+
+    button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    if (isActive) {
+        if (enterIcon) enterIcon.style.display = 'none';
+        if (exitIcon) exitIcon.style.display = 'inline-block';
+        if (label) label.textContent = 'Vollbild verlassen';
+        button.title = 'Vollbild verlassen';
+    } else {
+        if (enterIcon) enterIcon.style.display = 'inline-block';
+        if (exitIcon) exitIcon.style.display = 'none';
+        if (label) label.textContent = 'Vollbild';
+        button.title = 'Vollbild';
+    }
+}
+
+function toggleFullscreen() {
+    if (!isFullscreenActive()) {
+        const root = document.documentElement;
+        if (root.requestFullscreen) {
+            root.requestFullscreen();
+        } else if (root.webkitRequestFullscreen) {
+            root.webkitRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }
+}
+
 function handleDarkModeToggle() {
     if (this.checked) {
         document.body.classList.remove('bg-body-tertiary');
@@ -396,6 +439,26 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('countdownOn').addEventListener('click', checkBegin);
     document.getElementById('countdownOff').addEventListener('click', checkBegin);
     document.getElementById('soundLabel').addEventListener('click', soundToggle);
+
+    const fullscreenButton = document.getElementById('fullscreen-toggle');
+    if (fullscreenButton) {
+        const fullscreenSupported = !!(
+            document.fullscreenEnabled ||
+            document.webkitFullscreenEnabled ||
+            document.documentElement.requestFullscreen ||
+            document.documentElement.webkitRequestFullscreen
+        );
+        if (fullscreenSupported) {
+            fullscreenButton.addEventListener('click', toggleFullscreen);
+            document.addEventListener('fullscreenchange', setFullscreenButtonState);
+            document.addEventListener('webkitfullscreenchange', setFullscreenButtonState);
+            setFullscreenButtonState();
+        } else {
+            fullscreenButton.disabled = true;
+            fullscreenButton.classList.add('disabled');
+            fullscreenButton.title = 'Vollbild nicht verfügbar';
+        }
+    }
 
     // Dark Mode Toggle
     const toggle = document.getElementById('darkModeToggle');

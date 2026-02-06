@@ -8,10 +8,6 @@
     text-align: center;
 }
 
-#timer-is-runing-not {
-    text-align: end; 
-}
-
 #soundOnIcon {
     display: none;
 }
@@ -20,9 +16,16 @@
     display: inline-block;
 }
 
+#fullscreen-exit-icon {
+    display: none;
+}
+
+#fullscreen-toggle {
+    white-space: nowrap;
+}
+
 #timer-is-runing {
     display: none;
-    text-align: end;
 }
 
 #future {
@@ -116,13 +119,6 @@
 
     .countdown-info-text {
         margin-top: 15px;
-    }
-}
-
-@media (max-width: 767.98px) {
-     #timer-is-runing, #timer-is-runing-not {
-        text-align: start;
-        margin-top: 5px;
     }
 }
 

@@ -72,8 +72,8 @@
         </noscript>
         <div data-aos="zoom-in" data-aos-easing="ease-out-cubic">
             <header class="container container--individual main-header mb-3 position-relative">
-                <div class="row">
-                    <div class="col-12 col-md-8">
+                <div class="d-flex align-items-start gap-3 flex-nowrap">
+                    <div class="flex-grow-1">
                         <div class="text-muted small mb-0" data-aos="fade-left" data-aos-delay="400"><span class="border-bottom" id="clock-header">-:-</span></div>
                         <h1 class="mb-1" data-aos="fade-left" data-aos-delay="400">
                             <span id="exam-heading">Klausurtimer</span>
@@ -86,17 +86,12 @@
                             <p class="mb-0 small" id="exam-extra-text"></p>
                         </div>
                     </div>
-                    <div class="col-12 col-md-4" data-aos="zoom-in" data-aos-delay="400">
-                        <div id="timer-is-runing">
-                            <span class="badge rounded-pill text-bg-success">
-                                <i class="fa-solid fa-circle-play me-1"></i><span>Timer läuft</span>
-                            </span>
-                        </div>
-                        <div id="timer-is-runing-not">
-                            <span class="badge rounded-pill text-bg-danger">
-                                <i class="fa-solid fa-circle-stop me-1"></i><span>Timer läuft nicht</span>
-                            </span>
-                        </div>
+                    <div class="d-flex justify-content-end align-items-start flex-shrink-0" data-aos="zoom-in" data-aos-delay="400">
+                        <button class="btn btn-sm btn-outline-secondary" id="fullscreen-toggle" type="button" aria-pressed="false" title="Vollbild">
+                            <i class="fa-solid fa-expand" id="fullscreen-enter-icon"></i>
+                            <i class="fa-solid fa-compress" id="fullscreen-exit-icon"></i>
+                            <span class="ms-1" id="fullscreen-label">Vollbild</span>
+                        </button>
                     </div>
                 </div>
             </header>
@@ -176,6 +171,18 @@
                         </div>
                     </div>
                     <div class="text-center fs-1 text-white bg-dark shadow-sm border border-dark-subtle p-3 position-relative timer-container">
+                        <div class="d-flex justify-content-end fs-6 lh-1">
+                            <div id="timer-is-runing">
+                                <span class="badge text-bg-success">
+                                    <i class="fa-solid fa-circle-play me-1"></i><span>Aktiv</span>
+                                </span>
+                            </div>
+                            <div id="timer-is-runing-not">
+                                <span class="badge text-bg-danger">
+                                    <i class="fa-solid fa-circle-stop me-1"></i><span>Inaktiv</span>
+                                </span>
+                            </div>
+                        </div>
                         <div class="d-flex justify-content-around">
                             <div class="text-success fs-2 fw-semibold">
                                 <i class="fa-solid fa-pen-fancy"></i><span id="clock-start">-:-</span>
