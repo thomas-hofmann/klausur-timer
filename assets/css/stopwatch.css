@@ -8,6 +8,25 @@
     text-align: center;
 }
 
+#clock-start,
+#clock-finish,
+.timer-container .fa-pen-fancy,
+.timer-container .fa-alarm-clock {
+    text-shadow:
+        0 1px 0 var(--bs-dark-border-subtle),
+        0 -1px 0 var(--bs-dark-border-subtle),
+        1px 0 0 var(--bs-dark-border-subtle),
+        -1px 0 0 var(--bs-dark-border-subtle);
+}
+
+.timer-container .fa-pen-fancy,
+.timer-container .fa-alarm-clock {
+    font-size: 1rem;
+    line-height: 1;
+    vertical-align: 2px;
+    padding-right: 5px;
+}
+
 #soundOnIcon {
     display: none;
 }
