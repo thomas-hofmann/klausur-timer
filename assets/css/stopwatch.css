@@ -16,6 +16,10 @@
     display: inline-block;
 }
 
+#darkModeIconSun {
+    display: none;
+}
+
 #fullscreen-exit-icon {
     display: none;
 }
