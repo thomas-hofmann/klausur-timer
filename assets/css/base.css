@@ -106,9 +106,18 @@ hr {
     color: white;
 }
 
+.dark-mode .accordion-button::after {
+    filter: brightness(0) invert(1);
+}
+
+.dark-mode .accordion-button:hover::after {
+    filter: brightness(0) invert(1);
+}
+
 .dark-mode .accordion-button:hover {
-    background-color: white !important;
-    color: black !important;
+    background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+    color: white !important;
+    box-shadow: inset 0 .5rem 1rem rgba(255, 255, 255, .2) !important;
 }
 
 .dark-mode .btn-dark-toggle,
@@ -133,6 +142,7 @@ hr {
 .settings-accordion .accordion-button {
     padding: .35rem !important;
     font-size: .9rem;
+    transition: box-shadow .15s ease-in-out !important;
 }
 
 .settings-accordion .accordion-body {
