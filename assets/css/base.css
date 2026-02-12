@@ -287,35 +287,25 @@ body:not(.dark-mode) .input-group-text {
 }
 
 .hover-name-swap .name-slot {
-    position: relative;
-    display: inline-block;
+    display: inline-grid;
     min-width: 6ch;
     margin-left: .25ch;
 }
 
-.hover-name-swap .name-default,
-.hover-name-swap .name-hover {
-    transition: opacity .2s ease;
-}
-
-.hover-name-swap .name-default {
-    opacity: 1;
+.hover-name-swap .name-slot > span {
+    grid-area: 1 / 1;
 }
 
 .hover-name-swap .name-hover {
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-    pointer-events: none;
+    display: none;
 }
 
 .hover-name-swap:hover .name-default {
-    opacity: 0;
+    display: none;
 }
 
 .hover-name-swap:hover .name-hover {
-    opacity: 1;
+    display: inline;
 }
 
 .hover-name-swap:hover {
