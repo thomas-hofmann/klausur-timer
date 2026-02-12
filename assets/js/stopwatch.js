@@ -394,6 +394,9 @@ function toggleFullscreen() {
 }
 
 function handleDarkModeToggle() {
+    const darkModeText = document.getElementById('darkModeText');
+    const darkModeLabel = document.getElementById('darkModeToggleLabel');
+
     if (this.checked) {
         document.body.classList.remove('bg-body-tertiary');
         document.body.classList.remove('light-mode');
@@ -404,6 +407,8 @@ function handleDarkModeToggle() {
         const sunIcon = document.getElementById('darkModeIconSun');
         if (moonIcon) moonIcon.style.display = 'none';
         if (sunIcon) sunIcon.style.display = 'inline-block';
+        if (darkModeText) darkModeText.innerText = 'Light';
+        if (darkModeLabel) darkModeLabel.title = 'Zu Light wechseln';
         localStorage.setItem('darkMode', 'on');
     } else {
         document.body.classList.remove('bg-dark');
@@ -415,6 +420,8 @@ function handleDarkModeToggle() {
         const sunIcon = document.getElementById('darkModeIconSun');
         if (moonIcon) moonIcon.style.display = 'inline-block';
         if (sunIcon) sunIcon.style.display = 'none';
+        if (darkModeText) darkModeText.innerText = 'Dark';
+        if (darkModeLabel) darkModeLabel.title = 'Zu Dark wechseln';
         localStorage.setItem('darkMode', 'off');
     }
 }
@@ -422,6 +429,8 @@ function handleDarkModeToggle() {
 function initDarkMode() {
     const darkModeSetting = localStorage.getItem('darkMode');
     const toggle = document.getElementById('darkModeToggle');
+    const darkModeText = document.getElementById('darkModeText');
+    const darkModeLabel = document.getElementById('darkModeToggleLabel');
 
     if (darkModeSetting === 'on') {
         document.body.classList.add('bg-dark');
@@ -432,6 +441,8 @@ function initDarkMode() {
         const sunIcon = document.getElementById('darkModeIconSun');
         if (moonIcon) moonIcon.style.display = 'none';
         if (sunIcon) sunIcon.style.display = 'inline-block';
+        if (darkModeText) darkModeText.innerText = 'Light';
+        if (darkModeLabel) darkModeLabel.title = 'Zu Light wechseln';
     } else {
         document.body.classList.add('bg-body-tertiary');
         document.body.classList.add('light-mode');
@@ -440,6 +451,8 @@ function initDarkMode() {
         const sunIcon = document.getElementById('darkModeIconSun');
         if (moonIcon) moonIcon.style.display = 'inline-block';
         if (sunIcon) sunIcon.style.display = 'none';
+        if (darkModeText) darkModeText.innerText = 'Dark';
+        if (darkModeLabel) darkModeLabel.title = 'Zu Dark wechseln';
     }
 }
 
