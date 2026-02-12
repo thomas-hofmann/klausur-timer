@@ -128,7 +128,7 @@
                                     </div>
                                     <div class="input-group settings flex-column flex-lg-row">
                                         <span class="input-group-text d-none d-lg-inline" id="inputGroup-sizing-default">
-                                            <i class="fa-solid fa-arrow-right fa-beat"></i>
+                                            <i class="fa-solid fa-arrow-right text-primary"></i>
                                         </span>
                                         <input class="form-control w-auto settings-input input-time-patch bg-danger-subtle d-none" type="time" id="start-time" placeholder="Startuhrzeit" disabled>
                                         <input class="form-control w-auto settings-input" type="number" id="target-time" placeholder="Dauer in Minuten" min="1" oninput="this.value = Math.abs(this.value)" tabindex="1">
@@ -181,8 +181,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-center fs-1 text-white bg-dark shadow-sm border border-dark-subtle p-3 position-relative timer-container">
-                        <div class="d-flex justify-content-end fs-6 lh-1">
+                    <div class="text-center text-white bg-dark shadow-sm border border-dark-subtle p-3 position-relative timer-container">
+                        <div class="d-flex fs-6 lh-1 position-absolute top-0 start-0 end-0 mt-3 px-3 z-2 justify-content-center justify-content-lg-start">
                             <div id="timer-is-runing">
                                 <span class="badge text-bg-success border border-dark-subtle">
                                     <i class="fa-solid fa-circle-play me-1"></i><span>Aktiv</span>
@@ -194,16 +194,16 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-around">
+                        <div class="d-flex justify-content-around timer-meta-row">
                             <div class="text-success">
-                                <i class="fa-solid fa-pen-fancy start-stop-icons fs-3"></i><span id="clock-start" class="fs-2">-:-</span>
+                                <span id="clock-start" class="fs-2">-:-</span>
                             </div>
                             <div class="text-danger ">
-                                <i class="fa-regular fa-alarm-clock start-stop-icons fs-3"></i><span id="clock-finish" class="fs-2">-:-</span>
+                                <span id="clock-finish" class="fs-2">-:-</span>
                             </div>
                         </div>
                         <hr class="border-dark-subtle mb-0">
-                        <div id="stop-watch-container--runing" class="d-flex justify-content-evenly align-items-center stopwatch-flex-container lh-1">
+                        <div id="stop-watch-container--runing" class="d-flex justify-content-evenly align-items-center stopwatch-flex-container lh-1 fs-1">
                             <div class="display-4 fw-bold stopwatch-label stopwatch-label--left mt-2 mt-lg-0">Noch</div>
                             <div id="stopwatch" class="stopwatch fw-bold">0</div>
                             <div class="display-4 fw-bold stopwatch-label stopwatch-label--right" id="minutes">Min.</div>
